@@ -1,5 +1,6 @@
 package a.notifydemo;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -31,6 +32,21 @@ public class MainActivity extends AppCompatActivity {
         channel.enableVibration(true);
         channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
         notificationManager.createNotificationChannel(channel);
+    }
+    public void sendNotification(View view) {
+
+        int notificationID = 101;
+
+        String channelID = "a.notifydemo.news";
+
+        Notification notification =  new Notification.Builder(MainActivity.this, channelID)
+                .setContentTitle("New Message")
+                .setContentText("You've received new messages.")
+                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setNumber(10)
+                .setChannelId(channelID)
+                .build();
+        notificationManager.notify(notificationID, notification);
     }
 
 }
