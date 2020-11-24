@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     NotificationManager notificationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,44 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel("a.notifydemo.news",
                 "NotifyDemo News", "Example News Channel");
     }
+
+    final String GROUP_KEY_NOTIFY = "group_key_notify";
+    String channelID = "a.notifydemo.news";
+
+    Notification.Builder builderSummary = new Notification.Builder(this, channelID)
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setContentTitle("A Bundle Example")
+            .setContentText("You have 3 new messages")
+            .setGroup(GROUP_KEY_NOTIFY)
+            .setGroupSummary(true);
+
+    Notification.Builder builder1 = new Notification.Builder(this, channelID)
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setContentTitle("New Message")
+            .setContentText("You have a new message from Kassidy")
+            .setGroup(GROUP_KEY_NOTIFY);
+
+    Notification.Builder builder2 = new Notification.Builder(this, channelID)
+            .setContentTitle("New Message")
+            .setContentText("You have a new message from Caitlyn")
+            .setGroup(GROUP_KEY_NOTIFY);
+
+    Notification.Builder builder3 = new Notification.Builder(this, channelID)
+            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setContentTitle("New Message")
+            .setContentText("You have a new message from Jason")
+            .setGroup(GROUP_KEY_NOTIFY);
+
+    int notificationId0 = 100;
+    int notificationId1 = 101;
+    int notificationId2 = 102;
+    int notificationId3 = 103;
+
+        notificationManager.notify(notificationId1,builder1.build());
+        notificationManager.notify(notificationId2,builder2.build());
+        notificationManager.notify(notificationId3,builder3.build());
+        notificationManager.notify(notificationId0,builderSummary.build());
+
     protected void createNotificationChannel(String id, String name, String description) {
         int importance = NotificationManager.IMPORTANCE_LOW;
         NotificationChannel channel = new NotificationChannel(id, name, importance);
