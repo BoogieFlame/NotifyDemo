@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.view.View;
 
@@ -41,14 +42,19 @@ public class MainActivity extends AppCompatActivity {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-
+        final Icon icon = Icon.createWithResource(MainActivity.this,
+                android.R.drawable.ic_dialog_info);
         String channelID = "a.notifydemo.news";
+
+        Notification.Action action = new Notification.Action.Builder(icon, "Open", pendingIntent)
+                .build();
 
         Notification notification =  new Notification.Builder(MainActivity.this, channelID)
                 .setContentTitle("New Message")
                 .setContentText("You've received new messages.")
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setNumber(10)
+                .setActions(action)
                 .setContentIntent(pendingIntent)
                 .setChannelId(channelID)
                 .build();
